@@ -3,7 +3,7 @@
 %define version 1.0.9
 %define release %mkrel 1
 
-Summary:	Special functions for Octave.
+Summary:	Special functions for Octave
 Name:		%{name}
 Version:	%{version}
 Release:	%{release}
