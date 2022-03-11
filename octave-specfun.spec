@@ -1,8 +1,4 @@
 %define octpkg specfun
-%define debug_package %{nil}
-
-# Exclude .oct files from provides
-%define __provides_exclude_from ^%{octpkglibdir}/.*.oct$
 
 Summary:	Special functions for Octave
 Name:		octave-%{octpkg}
@@ -12,6 +8,7 @@ Source0:	http://downloads.sourceforge.net/octave/%{octpkg}-%{version}.tar.gz
 License:	GPLv3+ and BSD
 Group:		Sciences/Mathematics
 Url:		https://octave.sourceforge.io/%{octpkg}/
+BuildArch:	noarch
 
 BuildRequires:	octave-devel >= 3.4.0
 
@@ -25,14 +22,34 @@ Special functions including ellipitic functions, etc., for Octave.
 
 This package is part of unmantained Octave-Forge collection.
 
+%files
+%license COPYING
+%doc NEWS
+#dir %{octpkglibdir}
+#{octpkglibdir}/*
+%dir %{octpkgdir}
+%{octpkgdir}/*
+
+#---------------------------------------------------------------------------
+
 %prep
-%setup -qcT
+%autosetup -p1 -n %{octpkg}
+
+# remove backup files
+find . -name \*~ -delete
+
+# ellipj is now in Octave core
+rm -fr src
 
 %build
-%octave_pkg_build -T
+%set_build_flags
+%octave_pkg_build
 
 %install
 %octave_pkg_install
+
+%check
+%octave_pkg_check
 
 %post
 %octave_cmd pkg rebuild
@@ -42,12 +59,4 @@ This package is part of unmantained Octave-Forge collection.
 
 %postun
 %octave_cmd pkg rebuild
-
-%files
-%dir %{octpkglibdir}
-%{octpkglibdir}/*
-%dir %{octpkgdir}
-%{octpkgdir}/*
-%doc %{octpkg}/NEWS
-%doc %{octpkg}/COPYING
 
