@@ -8,7 +8,7 @@ Version:	1.1.0
 Release:	1
 # Use devlopment snapshot because last release is too old.
 # hg clone http://hg.code.sf.net/p/octave/specfun specfun
-# rm -fr octave-specfun/{.hg,.hgignore}
+# rm -fr specfun/{.hg,.hgignore}
 # mv specfun specfun-1.1.0
 # tar cvzf specfun-1.1.0.tar.gz specfun-1.1.0/*
 Source0:	http://downloads.sourceforge.net/octave/%{octpkg}-%{version}.tar.gz
